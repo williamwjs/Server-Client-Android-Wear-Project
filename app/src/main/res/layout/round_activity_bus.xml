@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.umich.eecs589.myapplication1.MainActivity"
+    tools:context="edu.umich.eecs589.myapplication1.BusActivity"
     tools:deviceIds="wear_round">
 
     <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/departure_time"
+        android:text="@string/bus_choose"
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -25,29 +25,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/button1"
         android:layout_below="@+id/text"
-        android:layout_toEndOf="@+id/hour"
-        android:layout_marginLeft="30dp">
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/hour"
-            android:focusable="true"
-            android:focusableInTouchMode="true" />
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/minu"
-            android:layout_marginStart="24dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true" />
-    </LinearLayout>
+        android:layout_centerHorizontal="true"
+        android:id="@+id/bus"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
 </RelativeLayout>

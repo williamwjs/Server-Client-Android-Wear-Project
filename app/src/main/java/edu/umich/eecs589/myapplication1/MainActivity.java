@@ -1,7 +1,9 @@
 package edu.umich.eecs589.myapplication1;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
@@ -12,10 +14,9 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.logging.Logger;
 
-public class MainActivity extends Activity {
+public class MainActivity extends WearableActivity {
 
     private TextView mTextView;
-    private UserInfo userInfo;
     private NumberPicker hourPicker;
     private NumberPicker minuPicker;
     private int departHour;
@@ -25,16 +26,18 @@ public class MainActivity extends Activity {
     private final int MIN_MINU = 0;
     private final int MAX_HINU = 59;
 
+    private final static String TAG = "TIME";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userInfo = new UserInfo();
         setContentView(R.layout.activity_main);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
+
                 hourPicker = (NumberPicker) stub.findViewById(R.id.hour);
                 minuPicker = (NumberPicker) stub.findViewById(R.id.minu);
 
@@ -46,7 +49,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal,
                                               int newVal) {
-                        // TODO Auto-generated method stub
                         departHour = newVal;
                     }
                 });
@@ -59,7 +61,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal,
                                               int newVal) {
-                        // TODO Auto-generated method stub
                         departMinute = newVal;
                     }
                 });
@@ -68,7 +69,11 @@ public class MainActivity extends Activity {
     }
 
     public void saveDepartureTime(View view) {
-        Log.i("Hour is:", "" + departHour);
-        Log.i("Minu is:", "" + departMinute);
+        Log.i(TAG, departHour + ":" + departMinute);
+
+        Intent intent = new Intent(MainActivity.this, DestinationStopActivity.class);
+        intent.putExtra("DepartHour", departHour);
+        intent.putExtra("DepartMinute", departMinute);
+        startActivity(intent);
     }
 }

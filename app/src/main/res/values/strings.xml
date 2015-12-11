@@ -4,4 +4,12 @@
     <string name="hello_square">Hello Square World!</string>
     <string name="departure_time">Departure Time:</string>
     <string name="next">Next</string>
+    <string name="ok">OK</string>
+    <string name="title_activity_bus">BusActivity</string>
+    <string name="bus_choose">Choose a bus</string>
+    <string name="title_activity_depart_stop">DepartStopActivity</string>
+    <string name="title_activity_destination_stop">DestinationStopActivity</string>
+    <string name="voice_input">Voice Input</string>
+    <string name="destination">Destination:</string>
+    <string name="current_pos">Current Position:</string>
 </resources>
