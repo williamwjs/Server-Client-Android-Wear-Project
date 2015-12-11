@@ -19,8 +19,8 @@ public class MainActivity extends WearableActivity {
     private TextView mTextView;
     private NumberPicker hourPicker;
     private NumberPicker minuPicker;
-    private int departHour;
-    private int departMinute;
+    private int arrivalHour;
+    private int arrivalMinute;
     private final int MIN_HOUR = 0;
     private final int MAX_HOUR = 23;
     private final int MIN_MINU = 0;
@@ -43,37 +43,37 @@ public class MainActivity extends WearableActivity {
 
                 hourPicker.setMinValue(MIN_HOUR);
                 hourPicker.setMaxValue(MAX_HOUR);
-                departHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                hourPicker.setValue(departHour);
+                arrivalHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+                hourPicker.setValue(arrivalHour);
                 hourPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal,
                                               int newVal) {
-                        departHour = newVal;
+                        arrivalHour = newVal;
                     }
                 });
 
                 minuPicker.setMinValue(MIN_MINU);
                 minuPicker.setMaxValue(MAX_HINU);
-                departMinute = Calendar.getInstance().get(Calendar.MINUTE);
-                minuPicker.setValue(departMinute);
+                arrivalMinute = Calendar.getInstance().get(Calendar.MINUTE);
+                minuPicker.setValue(arrivalMinute);
                 minuPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal,
                                               int newVal) {
-                        departMinute = newVal;
+                        arrivalMinute = newVal;
                     }
                 });
             }
         });
     }
 
-    public void saveDepartureTime(View view) {
-        Log.i(TAG, departHour + ":" + departMinute);
+    public void saveArrivalTime(View view) {
+        Log.i(TAG, arrivalHour + ":" + arrivalMinute);
 
         Intent intent = new Intent(MainActivity.this, DestinationStopActivity.class);
-        intent.putExtra("DepartHour", departHour);
-        intent.putExtra("DepartMinute", departMinute);
+        intent.putExtra("ArrivalHour", arrivalHour);
+        intent.putExtra("ArrivalMinute", arrivalMinute);
         startActivity(intent);
     }
 }

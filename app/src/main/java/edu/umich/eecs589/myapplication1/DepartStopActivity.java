@@ -30,12 +30,13 @@ public class DepartStopActivity extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.departStop);
             }
         });
+        departStop = "none";
     }
 
     public void saveDepartStop(View view) {
         Intent lastIntent = getIntent();
-        int hour = lastIntent.getIntExtra("DepartHour", 0);
-        int minute = lastIntent.getIntExtra("DepartMinute", 0);
+        int hour = lastIntent.getIntExtra("ArrivalHour", 0);
+        int minute = lastIntent.getIntExtra("ArrivalMinute", 0);
         String destinationStop = lastIntent.getStringExtra("DestinationStop");
 
         Log.i(TAG, departStop + ", " + destinationStop + ", " + hour + ":" + minute);

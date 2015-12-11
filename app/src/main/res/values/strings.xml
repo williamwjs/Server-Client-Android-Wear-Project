@@ -2,7 +2,7 @@
     <string name="app_name">My Application1</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
-    <string name="departure_time">Departure Time:</string>
+    <string name="arrival_time">Arrival Time:</string>
     <string name="next">Next</string>
     <string name="ok">OK</string>
     <string name="title_activity_bus">BusActivity</string>

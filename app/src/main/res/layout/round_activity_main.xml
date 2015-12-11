@@ -10,7 +10,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/departure_time"
+        android:text="@string/arrival_time"
         android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="@string/next"
         android:id="@+id/button1"
-        android:onClick="saveDepartureTime"
+        android:onClick="saveArrivalTime"
         android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />

@@ -49,7 +49,6 @@ public class DestinationStopActivity extends WearableActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        destinationStop = "none";
         setContentView(R.layout.activity_destination_stop);
         if (!hasGps()) {
             Log.d(TAG, "This hardware doesn't have GPS.");
@@ -64,6 +63,7 @@ public class DestinationStopActivity extends WearableActivity implements
                 mTextView = (TextView) stub.findViewById(R.id.desStop);
             }
         });
+        destinationStop = "none";
     }
 
     private boolean hasGps() {
@@ -72,15 +72,15 @@ public class DestinationStopActivity extends WearableActivity implements
 
     public void saveDestinationStop(View view) {
         Intent lastIntent = getIntent();
-        int hour = lastIntent.getIntExtra("DepartHour", 0);
-        int minute = lastIntent.getIntExtra("DepartMinute", 0);
+        int hour = lastIntent.getIntExtra("ArrivalHour", 0);
+        int minute = lastIntent.getIntExtra("ArrivalMinute", 0);
 
         Log.i(TAG, "(" + latitude + ", " + longitude + "), " + destinationStop + ", " + hour + ":" + minute);
 
         if (!gpsEnable) {
             Intent intent = new Intent(DestinationStopActivity.this, DepartStopActivity.class);
-            intent.putExtra("DepartHour", hour);
-            intent.putExtra("DepartMinute", minute);
+            intent.putExtra("ArrivalHour", hour);
+            intent.putExtra("ArrivalMinute", minute);
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
         }
