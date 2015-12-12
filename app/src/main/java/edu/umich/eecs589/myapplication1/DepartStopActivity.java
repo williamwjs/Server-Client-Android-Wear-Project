@@ -13,8 +13,44 @@ import java.util.List;
 
 public class DepartStopActivity extends Activity {
 
-    private TextView mTextView;
     private String departStop;
+    private String receivedMsg = "";
+    private TextView mTextView;
+    private TcpClient client = new TcpClient() {
+
+        @Override
+        public void onConnect(SocketTransceiver transceiver) {
+            //refreshUI(true);
+        }
+
+        @Override
+        public void onDisconnect(SocketTransceiver transceiver) {
+            //refreshUI(false);
+        }
+
+        @Override
+        public void onConnectFailed() {
+                /*handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(activity, "连接失败",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });*/
+        }
+
+        @Override
+        public void onReceive(SocketTransceiver transceiver, final String s) {
+                /*handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        txReceive.append(s);
+                    }
+                });*/
+            receivedMsg = s;
+            Log.i(TAG, receivedMsg);
+        }
+    };
 
     private final static int SPEECH_REQUEST_CODE = 0;
     private final static String TAG = "CURRENT";
@@ -31,6 +67,14 @@ public class DepartStopActivity extends Activity {
             }
         });
         departStop = "none";
+        SocketCommunication.connect(client, this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (client != null)
+            client.disconnect();
     }
 
     public void saveDepartStop(View view) {
@@ -41,7 +85,7 @@ public class DepartStopActivity extends Activity {
 
         Log.i(TAG, departStop + ", " + destinationStop + ", " + hour + ":" + minute);
 
-        SendSocket.sendSocket();
+        SocketCommunication.sendStr(client, "This is a test message");
     }
 
     public void getVoiceInput(View view) {

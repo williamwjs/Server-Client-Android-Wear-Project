@@ -8,6 +8,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.speech.RecognizerIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +18,7 @@ import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,6 +29,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.location.LocationListener;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -34,12 +38,14 @@ public class DestinationStopActivity extends WearableActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
-    private TextView mTextView;
-    private String destinationStop;
+    private boolean gpsEnable = true;
     private double latitude = 0.0;
     private double longitude = 0.0;
+    private TextView mTextView;
+    private String destinationStop;
     private GoogleApiClient mGoogleApiClient;
-    private boolean gpsEnable = true;
+    private String receivedMsg = "";
+    private TcpClient client;
 
     private final static int SPEECH_REQUEST_CODE = 0;
     private final static long UPDATE_INTERVAL_MS = TimeUnit.SECONDS.toMillis(2);
@@ -84,8 +90,6 @@ public class DestinationStopActivity extends WearableActivity implements
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
         }
-
-        SendSocket.sendSocket();
 
         /*LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         if (getApplicationContext().checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -196,6 +200,8 @@ public class DestinationStopActivity extends WearableActivity implements
             mGoogleApiClient.disconnect();
         }
         super.onStop();
+        if (client != null)
+            client.disconnect();
     }
 
     @Override
