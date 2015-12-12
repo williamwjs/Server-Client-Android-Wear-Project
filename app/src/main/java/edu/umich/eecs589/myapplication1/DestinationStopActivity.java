@@ -77,7 +77,7 @@ public class DestinationStopActivity extends WearableActivity implements
 
         Log.i(TAG, "(" + latitude + ", " + longitude + "), " + destinationStop + ", " + hour + ":" + minute);
 
-        if (!gpsEnable) {
+        if (longitude != 0 || latitude != 0) {
             Intent intent = new Intent(DestinationStopActivity.this, DepartStopActivity.class);
             intent.putExtra("ArrivalHour", hour);
             intent.putExtra("ArrivalMinute", minute);

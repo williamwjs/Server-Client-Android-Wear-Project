@@ -20,7 +20,6 @@ public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "RegIntentService";
     private static final String[] TOPICS = {"global"};
-    private static final int gcm_defaultSenderId=0x7f060035;
 
     public RegistrationIntentService() {
         super(TAG);
