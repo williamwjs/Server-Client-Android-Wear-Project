@@ -11,7 +11,7 @@ import android.widget.Toast;
  */
 public class SocketCommunication {
     private static Handler handler = new Handler(Looper.getMainLooper());
-    public static String hostIP = "IP";
+    public static String hostIP = "35.2.127.100";
     public static int port = 1234;
     private static String receivedMsg = "";
     private static String TAG = "SOCKET";
