@@ -31,7 +31,6 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/button1"
         android:layout_below="@+id/text"
-        android:layout_toEndOf="@+id/hour"
         android:layout_marginLeft="30dp">
 
         <NumberPicker
