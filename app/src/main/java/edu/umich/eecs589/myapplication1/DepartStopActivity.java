@@ -28,7 +28,7 @@ public class DepartStopActivity extends Activity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     private final static int SPEECH_REQUEST_CODE = 0;
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private final static String TAG = "CURRENT";
 
     @Override

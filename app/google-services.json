@@ -1,17 +1,17 @@
 {
   "project_info": {
-    "project_id": "default-demo-app-1f7cf",
-    "project_number": "579895754539",
-    "name": "Default Demo App"
+    "project_id": "my-application1-4fc5e",
+    "project_number": "762122036861",
+    "name": "My Application1"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:579895754539:android:f36173e948059ccb",
-        "client_id": "android:gcm.play.android.samples.com.gcmquickstart",
+        "mobilesdk_app_id": "1:762122036861:android:09b61252aa5f5575",
+        "client_id": "android:edu.umich.eecs589.myapplication1",
         "client_type": 1,
         "android_client_info": {
-          "package_name": "gcm.play.android.samples.com.gcmquickstart"
+          "package_name": "edu.umich.eecs589.myapplication1"
         }
       },
       "oauth_client": [],
