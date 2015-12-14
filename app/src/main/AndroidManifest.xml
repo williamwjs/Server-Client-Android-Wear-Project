@@ -33,7 +33,7 @@
         -->
         <activity
             android:name=".DestinationStopActivity"
-            android:label="@string/title_activity_destination_stop"></activity>
+            android:label="@string/title_activity_destination_stop" />
 
         <service android:name=".WearCommunicationService">
             <intent-filter>
@@ -51,7 +51,7 @@
 
         <activity
             android:name=".WakeActivity"
-            android:label="@string/title_activity_wake"></activity>
+            android:label="@string/title_activity_wake" />
     </application>
 
 </manifest>

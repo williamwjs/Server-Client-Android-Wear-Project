@@ -30,8 +30,8 @@ public class DestinationStopActivity extends WearableActivity implements
 
     private TextView mTextView;
     private String destinationStop;
-    private double latitude = 0.0;
-    private double longitude = 0.0;
+    private double latitude;
+    private double longitude;
 
     private static int i = 0;
     private final static int SPEECH_REQUEST_CODE = 0;
@@ -56,6 +56,8 @@ public class DestinationStopActivity extends WearableActivity implements
             }
         });
         destinationStop = "none";
+        longitude = 0;
+        latitude = 0;
     }
 
     private boolean hasGps() {

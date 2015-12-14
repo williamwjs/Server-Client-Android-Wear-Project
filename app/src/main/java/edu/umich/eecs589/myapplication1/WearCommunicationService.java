@@ -1,5 +1,6 @@
 package edu.umich.eecs589.myapplication1;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -7,6 +8,9 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.WearableExtender;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -68,22 +72,42 @@ public class WearCommunicationService extends WearableListenerService {
                 Intent intent = new Intent(getApplicationContext(), WakeActivity.class);
                 intent.putExtra("Wake", message);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                        PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */,
+                        intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+                int notificationId = 001;
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                NotificationCompat.Action action =
+                        new NotificationCompat.Action.Builder(R.drawable.ic_stat_ic_notification,
+                                getString(R.string.bus_coming), pendingIntent)
+                                .build();
+
+                Notification notification =
+                        new NotificationCompat.Builder(this)
+                                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                                .setContentTitle(getString(R.string.app_name))
+                                .setContentText(getString(R.string.bus_coming))
+                                .setSound(defaultSoundUri)
+                                .setContentIntent(pendingIntent)
+                                .extend(new WearableExtender().addAction(action))
+                                .build();
+
+                /*
                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                         //.setSmallIcon(R.drawable.ic_stat_ic_notification)
                         .setContentTitle("Bus Tracker")
                         .setContentText("Bus Coming")
-                        .setAutoCancel(true)
+                        //.setAutoCancel(true)
                         .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);
+                        .setContentIntent(pendingIntent);*/
 
-                NotificationManager notificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationManagerCompat notificationManager =
+                        NotificationManagerCompat.from(this);
 
-                notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+                /* NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);*/
+
+                notificationManager.notify(notificationId, notification);
             }
         } else {
             super.onMessageReceived(messageEvent);
