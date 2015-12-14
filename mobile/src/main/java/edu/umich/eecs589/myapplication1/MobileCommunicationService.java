@@ -19,9 +19,11 @@ import java.io.IOException;
 public class MobileCommunicationService extends WearableListenerService {
     private static final String TAG = "MOBILCOM";
     private static final String WEAR = "Wear";
+    private static final String MOBILE = "Mobile";
     private static GoogleCloudMessaging gcm;
     private static final String SENDER_ID = "1029481912999";
     private static int id = 10000;
+    private static String sourceId = "";
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
@@ -30,7 +32,8 @@ public class MobileCommunicationService extends WearableListenerService {
             final String message = new String(messageEvent.getData());
             Log.i(TAG, "Received msg: " + message);
             Log.i(TAG, "Src Id: " + messageEvent.getSourceNodeId());
-            sendMsg(message);
+            sourceId = messageEvent.getSourceNodeId();
+            sendMsgToServer(message);
             /*googleApiClient = new GoogleApiClient.Builder(this)
                     .addApi(Wearable.API)
                     .addConnectionCallbacks(this)
@@ -51,7 +54,19 @@ public class MobileCommunicationService extends WearableListenerService {
         }
     }
 
-    public void sendMsg(final String msg) {
+    public static void SendMsgToWear(final GoogleApiClient googleApiClient,
+                                     final String msg) {
+        MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(googleApiClient, sourceId, MOBILE, msg.getBytes()).await();
+        //mTextView.setText(msg);
+        if(!result.getStatus().isSuccess()){
+            Log.e(TAG, "error");
+        } else {
+            Log.i(TAG, "success!! sent to: " + sourceId);
+            //mGoogleApiClient.disconnect();
+        }
+    }
+
+    public void sendMsgToServer(final String msg) {
         gcm = GoogleCloudMessaging.getInstance(this);
         try {
             String regid = gcm.register(SENDER_ID);

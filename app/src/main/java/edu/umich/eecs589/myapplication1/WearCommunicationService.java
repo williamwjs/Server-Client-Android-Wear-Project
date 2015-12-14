@@ -4,16 +4,19 @@ import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
+import com.google.android.gms.wearable.WearableListenerService;
 
 /**
  * Created by willwjs on 12/13/15.
  */
-public class WearCommunicationService {
+public class WearCommunicationService extends WearableListenerService {
     private static final String TAG = "WEARCOM";
     private static final String WEAR = "Wear";
+    private static final String MOBILE = "Mobile";
 
     public static void sendMsg(final GoogleApiClient mGoogleApiClient,
                                final String msg) {
@@ -35,6 +38,17 @@ public class WearCommunicationService {
 
         } else {
             Log.e(TAG, "not connected");
+        }
+    }
+
+    @Override
+    public void onMessageReceived(MessageEvent messageEvent) {
+        Log.i(TAG, "onMessageReceived()");
+        if(messageEvent.getPath().equals(MOBILE)) {
+            final String message = new String(messageEvent.getData());
+            Log.i(TAG, message);
+        } else {
+            super.onMessageReceived(messageEvent);
         }
     }
 }

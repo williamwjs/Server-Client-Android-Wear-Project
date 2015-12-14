@@ -65,6 +65,7 @@ public class MyGcmListenerService extends GcmListenerService {
          * that a message was received.
          */
         //sendNotification(message);
+        MobileCommunicationService.SendMsgToWear(MainActivity.mGoogleApiClient, message);
         // [END_EXCLUDE]
     }
     // [END receive_message]
