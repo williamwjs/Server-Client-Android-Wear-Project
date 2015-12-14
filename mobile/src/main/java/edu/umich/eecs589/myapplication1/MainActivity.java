@@ -25,13 +25,10 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
     private static final String TAG = "MainActivity";
-    private static final String SENDER_ID = "1029481912999";
-    private static int id = 10000;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private ProgressBar mRegistrationProgressBar;
     private TextView mInformationTextView;
-    private GoogleCloudMessaging gcm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +57,6 @@ public class MainActivity extends AppCompatActivity {
             // Start IntentService to register this application with GCM.
             Intent intent = new Intent(this, RegistrationIntentService.class);
             startService(intent);
-        }
-
-        gcm = GoogleCloudMessaging.getInstance(this);
-        try {
-            String regid = gcm.register(SENDER_ID);
-        } catch (Exception e) {
-            Log.e(TAG, "Can't register GCM");
         }
     }
 
@@ -106,31 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendMsg(View view) {
         if (view == findViewById(R.id.button)) {
-            new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    try {
-                        Bundle data = new Bundle();
-                        data.putString("my_message", "Hello JUN");
-                        data.putString("my_action", "SAY_HELLO");
-                        //String id = Integer.toString(msgId.incrementAndGet());
-                        if (gcm == null)
-                            Log.e(TAG, "null pointer here");
-                        gcm.send(SENDER_ID + "@gcm.googleapis.com", ++id + "", data);
-                        Log.i(TAG, "Send");
-                        return null;
-                    } catch (IOException ex) {
-                        return "Error sending upstream message:" + ex.getMessage();
-                    }
-                }
-
-                @Override
-                protected void onPostExecute(String msg) {
-                    if (msg != null) {
-                        Log.i(TAG, "onPostExecute");
-                    }
-                }
-            }.execute(null, null, null);
+            //MobileCommunicationService.sendMsg("Hi Test");
         }
     }
 

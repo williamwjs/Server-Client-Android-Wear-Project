@@ -62,6 +62,13 @@
             android:exported="false">
         </service>
 
+        <!-- Listen to Wear -->
+        <service android:name=".MobileCommunicationService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
