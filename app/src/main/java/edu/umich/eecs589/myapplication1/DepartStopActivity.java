@@ -40,8 +40,6 @@ public class DepartStopActivity extends Activity {
         String destinationStop = lastIntent.getStringExtra("DestinationStop");
 
         Log.i(TAG, departStop + ", " + destinationStop + ", " + hour + ":" + minute);
-
-        SendSocket.sendSocket();
     }
 
     public void getVoiceInput(View view) {

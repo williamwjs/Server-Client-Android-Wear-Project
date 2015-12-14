@@ -1,16 +1,10 @@
 package edu.umich.eecs589.myapplication1;
 
-import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
@@ -19,11 +13,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.location.LocationListener;
 
 import java.util.List;
@@ -77,65 +68,14 @@ public class DestinationStopActivity extends WearableActivity implements
 
         Log.i(TAG, "(" + latitude + ", " + longitude + "), " + destinationStop + ", " + hour + ":" + minute);
 
-        if (!gpsEnable) {
+        if (latitude == 0 || longitude == 0) {
+            // Can't get the current gps location. Let user voice input
             Intent intent = new Intent(DestinationStopActivity.this, DepartStopActivity.class);
             intent.putExtra("ArrivalHour", hour);
             intent.putExtra("ArrivalMinute", minute);
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
         }
-
-        SendSocket.sendSocket();
-
-        /*LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        if (getApplicationContext().checkCallingOrSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && getApplicationContext().checkCallingOrSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            return;
-        if(locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if(location != null){
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-        }else {
-            LocationListener locationListener = new LocationListener() {
-
-                // Provider的状态在可用、暂时不可用和无服务三个状态直接切换时触发此函数
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                // Provider被enable时触发此函数，比如GPS被打开
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                // Provider被disable时触发此函数，比如GPS被关闭
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-
-                //当坐标改变时触发此函数，如果Provider传进相同的坐标，它就不会被触发
-                @Override
-                public void onLocationChanged(Location location) {
-                    if (location != null) {
-                        Log.e("Map", "Location changed : Lat: "
-                                + location.getLatitude() + " Lng: "
-                                + location.getLongitude());
-                    }
-                }
-            };
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
-            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if(location != null){
-                latitude = location.getLatitude();
-                longitude = location.getLongitude();
-            }
-        }
-        Log.i(TAG, latitude + ", " + longitude);*/
     }
 
     public void getVoiceInput(View view) {
