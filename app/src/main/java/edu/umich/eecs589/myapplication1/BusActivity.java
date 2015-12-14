@@ -13,7 +13,8 @@ public class BusActivity extends Activity {
 
     private TextView mTextView;
     private NumberPicker busPicker;
-    private String selectedBus;
+    private int selectedBus;
+    private static int i = 20000;
 
     private final static String TAG = "BUS";
     private final static String[] BUS_NAME = {"NW", "BB"};
@@ -26,6 +27,9 @@ public class BusActivity extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
+                Intent lastIntent = getIntent();
+                Log.i(TAG, lastIntent.getStringExtra("BusInfo"));
+
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
                 busPicker = (NumberPicker) stub.findViewById(R.id.bus);
@@ -33,13 +37,13 @@ public class BusActivity extends Activity {
                 busPicker.setMinValue(0);
                 busPicker.setMaxValue(BUS_NAME.length - 1);
                 busPicker.setValue(0);
-                selectedBus = BUS_NAME[0];
+                selectedBus = 0;
                 busPicker.setDisplayedValues(BUS_NAME);
                 busPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                     @Override
                     public void onValueChange(NumberPicker picker, int oldVal,
                                               int newVal) {
-                        selectedBus = BUS_NAME[newVal];
+                        selectedBus = newVal;
                     }
                 });
             }
@@ -47,14 +51,16 @@ public class BusActivity extends Activity {
         Intent intent = getIntent();
     }
 
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStop");
+        super.onStop();
+    }
+
     public void saveSelectedBus(View view) {
-        Intent intent = new Intent(BusActivity.this, DepartStopActivity.class);
-        Intent lastIntent = getIntent();
-        intent.putExtra("DepartHour", lastIntent.getIntExtra("DepartHour", 0));
-        intent.putExtra("DepartMinute", lastIntent.getIntExtra("DepartMinute", 0));
-        intent.putExtra("SelectedBus", selectedBus);
-        Log.i(TAG, selectedBus);
-        startActivity(intent);
+        String msg = ++i + "|BUS|" + selectedBus;
+        WearCommunicationService.sendMsg(DestinationStopActivity.mGoogleApiClient, msg);
+        finishAffinity();
     }
 
 

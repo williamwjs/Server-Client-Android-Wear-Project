@@ -1,5 +1,6 @@
 package edu.umich.eecs589.myapplication1;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -46,7 +47,11 @@ public class WearCommunicationService extends WearableListenerService {
         Log.i(TAG, "onMessageReceived()");
         if(messageEvent.getPath().equals(MOBILE)) {
             final String message = new String(messageEvent.getData());
-            Log.i(TAG, message);
+            Log.i(TAG, "Received msg: " + message);
+            Intent intent = new Intent(this, BusActivity.class);
+            intent.putExtra("BusInfo", message);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else {
             super.onMessageReceived(messageEvent);
         }

@@ -26,11 +26,12 @@ public class DestinationStopActivity extends WearableActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    public static GoogleApiClient mGoogleApiClient;
+
     private TextView mTextView;
     private String destinationStop;
     private double latitude = 0.0;
     private double longitude = 0.0;
-    private GoogleApiClient mGoogleApiClient;
 
     private static int i = 0;
     private final static int SPEECH_REQUEST_CODE = 0;
@@ -66,19 +67,19 @@ public class DestinationStopActivity extends WearableActivity implements
         int hour = lastIntent.getIntExtra("ArrivalHour", 0);
         int minute = lastIntent.getIntExtra("ArrivalMinute", 0);
 
-        if (latitude == 0 || longitude == 0) {
+        /*if (latitude == 0 || longitude == 0) {
             // Can't get the current gps location. Let user voice input
             Intent intent = new Intent(DestinationStopActivity.this, DepartStopActivity.class);
             intent.putExtra("ArrivalHour", hour);
             intent.putExtra("ArrivalMinute", minute);
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
-        } else {
+        } else {*/
             String msg = ++i + "|GPS|" + latitude + ", " + longitude + "|"
                     + destinationStop + "|" + hour + "|" + minute;
             Log.i(TAG, msg);
             WearCommunicationService.sendMsg(mGoogleApiClient, msg);
-        }
+        //}
     }
 
     public void getVoiceInput(View view) {
@@ -138,6 +139,7 @@ public class DestinationStopActivity extends WearableActivity implements
                     .removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        Log.d(TAG, "onStop");
         super.onStop();
     }
 
