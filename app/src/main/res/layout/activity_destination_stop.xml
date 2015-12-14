@@ -5,7 +5,7 @@
     android:id="@+id/watch_view_stub"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:rectLayout="@layout/rect_activity_destination_stop"
+    app:rectLayout="@layout/round_activity_destination_stop"
     app:roundLayout="@layout/round_activity_destination_stop"
     tools:context="edu.umich.eecs589.myapplication1.DestinationStopActivity"
     tools:deviceIds="wear"></android.support.wearable.view.WatchViewStub>

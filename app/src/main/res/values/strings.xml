@@ -12,4 +12,5 @@
     <string name="voice_input">Voice Input</string>
     <string name="destination">Destination:</string>
     <string name="current_pos">Current Position:</string>
+    <string name="title_activity_wake">WakeActivity</string>
 </resources>

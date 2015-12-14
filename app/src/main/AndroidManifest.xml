@@ -26,13 +26,14 @@
         <activity
             android:name=".BusActivity"
             android:label="@string/title_activity_bus" />
-        <!--<activity
+        <!--
+            <activity
             android:name=".DepartStopActivity"
-            android:label="@string/title_activity_depart_stop" /> -->
+            android:label="@string/title_activity_depart_stop" />
+        -->
         <activity
             android:name=".DestinationStopActivity"
-            android:label="@string/title_activity_destination_stop">
-        </activity>
+            android:label="@string/title_activity_destination_stop"></activity>
 
         <service android:name=".WearCommunicationService">
             <intent-filter>
@@ -40,11 +41,17 @@
             </intent-filter>
         </service>
 
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <uses-library android:name="com.google.android.wearable"
+
+        <uses-library
+            android:name="com.google.android.wearable"
             android:required="false" />
 
+        <activity
+            android:name=".WakeActivity"
+            android:label="@string/title_activity_wake"></activity>
     </application>
 
 </manifest>
