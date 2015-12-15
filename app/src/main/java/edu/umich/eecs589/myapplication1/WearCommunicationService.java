@@ -90,7 +90,7 @@ public class WearCommunicationService extends WearableListenerService {
                                 .build();
                 Notification notification =
                         new NotificationCompat.Builder(this)
-                                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                                .setSmallIcon(R.mipmap.ic_launcher)
                                 .setContentTitle(getString(R.string.app_name))
                                 .setContentText(getString(R.string.bus_coming_detail))
                                 .setSound(defaultSoundUri)
@@ -124,7 +124,7 @@ public class WearCommunicationService extends WearableListenerService {
                                 .build();
                 Notification notification =
                         new NotificationCompat.Builder(this)
-                                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                                .setSmallIcon(R.mipmap.ic_launcher)
                                 .setContentTitle(getString(R.string.app_name))
                                 .setContentText(getString(R.string.bus_unable_detail))
                                 .setSound(defaultSoundUri)
