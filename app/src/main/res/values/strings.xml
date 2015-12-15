@@ -14,4 +14,5 @@
     <string name="current_pos">Current Position:</string>
     <string name="title_activity_wake">WakeActivity</string>
     <string name="bus_coming">Bus Coming</string>
+    <string name="bus_coming_detail">Bus Coming!\nPlease swipe right to enter the app to see the details</string>
 </resources>

@@ -17,7 +17,6 @@ public class BusActivity extends Activity {
     private static int i = 20000;
 
     private final static String TAG = "BUS";
-    private final static String[] BUS_NAME = {"NW", "BB"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +27,14 @@ public class BusActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 Intent lastIntent = getIntent();
-                Log.i(TAG, lastIntent.getStringExtra("BusInfo"));
+                String[] BUS_NAME = null;
+                String busInfo1 = lastIntent.getStringExtra("BusInfo1");
+                String busInfo2 = lastIntent.getStringExtra("BusInfo2");
+                if ("none".equals(busInfo2)) {
+                    BUS_NAME = new String[] {busInfo1};
+                } else {
+                    BUS_NAME = new String[] {busInfo1, busInfo2};
+                }
 
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
@@ -48,7 +54,6 @@ public class BusActivity extends Activity {
                 });
             }
         });
-        Intent intent = getIntent();
     }
 
     @Override

@@ -77,7 +77,7 @@ public class DestinationStopActivity extends WearableActivity implements
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
         } else {*/
-            String msg = ++i + "|GPS|" + latitude + ", " + longitude + "|"
+            String msg = ++i + "|GPS|" + latitude + "," + longitude + "|"
                     + destinationStop + "|" + hour + "|" + minute;
             Log.i(TAG, msg);
             WearCommunicationService.sendMsg(mGoogleApiClient, msg);

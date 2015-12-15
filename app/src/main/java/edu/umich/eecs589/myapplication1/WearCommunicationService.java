@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.WearableExtender;
 import android.support.v4.app.NotificationManagerCompat;
@@ -30,6 +31,7 @@ public class WearCommunicationService extends WearableListenerService {
     private static final String MOBILE = "Mobile";
     private static final String BUSOPT = "BusOpt";
     private static final String WAKE = "Wake";
+    private static final int COMMANDINDEX = 1;
 
     public static void sendMsg(final GoogleApiClient mGoogleApiClient,
                                final String msg) {
@@ -61,16 +63,19 @@ public class WearCommunicationService extends WearableListenerService {
             final String message = new String(messageEvent.getData());
             Log.i(TAG, "Received msg: " + message);
             String[] strs = message.split("\\|");
-            if (BUSOPT.equals(strs[1])) {
+            if (BUSOPT.equals(strs[COMMANDINDEX])) {
                 Log.d(TAG, "Go to BusActivity");
                 Intent intent = new Intent(this, BusActivity.class);
-                intent.putExtra("BusInfo", message);
+                intent.putExtra("BusInfo1", strs[COMMANDINDEX + 1]);
+                intent.putExtra("BusInfo2", strs[COMMANDINDEX + 2]);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
-            } else if (WAKE.equals(strs[1])) {
+            } else if (WAKE.equals(strs[COMMANDINDEX])) {
                 Log.d(TAG, "Go to WakeActivity");
                 Intent intent = new Intent(getApplicationContext(), WakeActivity.class);
-                intent.putExtra("Wake", message);
+                intent.putExtra("GPS", strs[COMMANDINDEX + 1]);
+                intent.putExtra("Time", strs[COMMANDINDEX + 2]);
+                intent.putExtra("BusName", strs[COMMANDINDEX + 3]);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */,
                         intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -86,10 +91,12 @@ public class WearCommunicationService extends WearableListenerService {
                         new NotificationCompat.Builder(this)
                                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
                                 .setContentTitle(getString(R.string.app_name))
-                                .setContentText(getString(R.string.bus_coming))
+                                .setContentText(getString(R.string.bus_coming_detail))
                                 .setSound(defaultSoundUri)
+                                .setVibrate(new long[] {0, 500, 50, 300})
+                                .setDefaults(Notification.DEFAULT_ALL)
                                 .setContentIntent(pendingIntent)
-                                .extend(new WearableExtender().addAction(action))
+                                .extend(new WearableExtender().addAction(action)/*.setBackground()*/)
                                 .build();
 
                 /*
