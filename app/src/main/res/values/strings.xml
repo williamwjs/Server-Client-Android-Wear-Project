@@ -15,4 +15,6 @@
     <string name="title_activity_wake">WakeActivity</string>
     <string name="bus_coming">Bus Coming</string>
     <string name="bus_coming_detail">Bus Coming!\nPlease swipe right to enter the app to see the details</string>
+    <string name="bus_unable">Unable to Catch</string>
+    <string name="bus_unable_detail">Unable to catch the bus!\nPlease swipe right to set time again</string>
 </resources>

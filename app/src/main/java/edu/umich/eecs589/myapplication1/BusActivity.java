@@ -63,7 +63,7 @@ public class BusActivity extends Activity {
     }
 
     public void saveSelectedBus(View view) {
-        String msg = ++i + "|BUS|" + selectedBus;
+        String msg = ++i + "|BUS|" + selectedBus + "|";
         WearCommunicationService.sendMsg(DestinationStopActivity.mGoogleApiClient, msg);
         finishAffinity();
     }

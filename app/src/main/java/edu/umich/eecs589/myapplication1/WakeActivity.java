@@ -1,16 +1,21 @@
 package edu.umich.eecs589.myapplication1;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.widget.TextView;
 
-public class WakeActivity extends Activity {
+public class WakeActivity extends WearableActivity {
 
     private final static String TAG = "WAKE";
-    private TextView mTextView;
+    private TextView mTextView1;
+    private TextView mTextView2;
+
+    private String gps;
+    private String busTime;
+    private String busName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +27,15 @@ public class WakeActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 Intent lastIntent = getIntent();
                 Log.i(TAG, lastIntent.getStringExtra("GPS"));
-                Log.i(TAG, lastIntent.getStringExtra("Time"));
-                Log.i(TAG, lastIntent.getStringExtra("BusName"));
+                gps = lastIntent.getStringExtra("GPS");
+                busTime = "Bus Time: " + lastIntent.getStringExtra("Time");
+                busName = "Bus: " + lastIntent.getStringExtra("BusName");
 
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                mTextView1 = (TextView) stub.findViewById(R.id.text_name);
+                mTextView2 = (TextView) stub.findViewById(R.id.text_time);
+
+                mTextView1.setText(busName);
+                mTextView2.setText(busTime);
             }
         });
     }

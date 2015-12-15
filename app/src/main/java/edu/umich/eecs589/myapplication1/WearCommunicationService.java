@@ -30,6 +30,7 @@ public class WearCommunicationService extends WearableListenerService {
     private static final String WEAR = "Wear";
     private static final String MOBILE = "Mobile";
     private static final String BUSOPT = "BusOpt";
+    private static final String UNABLE = "Unable";
     private static final String WAKE = "Wake";
     private static final int COMMANDINDEX = 1;
 
@@ -94,6 +95,48 @@ public class WearCommunicationService extends WearableListenerService {
                                 .setContentText(getString(R.string.bus_coming_detail))
                                 .setSound(defaultSoundUri)
                                 .setVibrate(new long[] {0, 500, 50, 300})
+                                .setDefaults(Notification.DEFAULT_ALL)
+                                .setContentIntent(pendingIntent)
+                                .extend(new WearableExtender().addAction(action)/*.setBackground()*/)
+                                .build();
+
+                /*
+                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                        //.setSmallIcon(R.drawable.ic_stat_ic_notification)
+                        .setContentTitle("Bus Tracker")
+                        .setContentText("Bus Coming")
+                        //.setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setContentIntent(pendingIntent);*/
+
+                NotificationManagerCompat notificationManager =
+                        NotificationManagerCompat.from(this);
+
+                /* NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);*/
+
+                notificationManager.notify(notificationId, notification);
+            } else if (UNABLE.equals(strs[COMMANDINDEX])) {
+                Log.d(TAG, "Go to MainActivity");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */,
+                        intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                int notificationId = 002;
+                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                NotificationCompat.Action action =
+                        new NotificationCompat.Action.Builder(R.drawable.ic_stat_ic_notification,
+                                getString(R.string.bus_unable), pendingIntent)
+                                .build();
+
+                Notification notification =
+                        new NotificationCompat.Builder(this)
+                                .setSmallIcon(R.drawable.ic_stat_ic_notification)
+                                .setContentTitle(getString(R.string.app_name))
+                                .setContentText(getString(R.string.bus_unable_detail))
+                                .setSound(defaultSoundUri)
+                                .setVibrate(new long[]{0, 500, 50, 300})
                                 .setDefaults(Notification.DEFAULT_ALL)
                                 .setContentIntent(pendingIntent)
                                 .extend(new WearableExtender().addAction(action)/*.setBackground()*/)

@@ -30,8 +30,8 @@ public class DestinationStopActivity extends WearableActivity implements
 
     private TextView mTextView;
     private String destinationStop;
-    private double latitude;
-    private double longitude;
+    private static double latitude;
+    private static double longitude;
 
     private static int i = 0;
     private final static int SPEECH_REQUEST_CODE = 0;
@@ -78,7 +78,8 @@ public class DestinationStopActivity extends WearableActivity implements
             startActivity(intent);
         } else {*/
             String msg = ++i + "|GPS|" + latitude + "," + longitude + "|"
-                    + destinationStop + "|" + hour + "|" + minute;
+                    + "Central Campus Transit Center" + "|" + hour + "|" + minute + "|";
+                    //+ destinationStop + "|" + hour + "|" + minute + "|";
             Log.i(TAG, msg);
             WearCommunicationService.sendMsg(mGoogleApiClient, msg);
         //}
@@ -187,9 +188,9 @@ public class DestinationStopActivity extends WearableActivity implements
 
     @Override
     public void onLocationChanged(Location location) {
-        latitude = location.getLatitude();
-        longitude = location.getLongitude();
-        Log.i(TAG, latitude + ", " + longitude);
+        DestinationStopActivity.latitude = location.getLatitude();
+        DestinationStopActivity.longitude = location.getLongitude();
+        Log.i(TAG, "Location changed: " + DestinationStopActivity.latitude + ", " + DestinationStopActivity.longitude);
     }
 
     @Override
