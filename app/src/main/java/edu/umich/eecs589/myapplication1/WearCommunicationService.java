@@ -1,17 +1,15 @@
 package edu.umich.eecs589.myapplication1;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationCompat.WearableExtender;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -83,37 +81,29 @@ public class WearCommunicationService extends WearableListenerService {
 
                 int notificationId = 001;
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Bitmap background = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_background);
+
                 NotificationCompat.Action action =
                         new NotificationCompat.Action.Builder(R.drawable.ic_stat_ic_notification,
                                 getString(R.string.bus_coming), pendingIntent)
                                 .build();
-
                 Notification notification =
                         new NotificationCompat.Builder(this)
                                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
                                 .setContentTitle(getString(R.string.app_name))
                                 .setContentText(getString(R.string.bus_coming_detail))
                                 .setSound(defaultSoundUri)
-                                .setVibrate(new long[] {0, 500, 50, 300})
+                                .setVibrate(new long[]{0, 500, 50, 300})
                                 .setDefaults(Notification.DEFAULT_ALL)
                                 .setContentIntent(pendingIntent)
-                                .extend(new WearableExtender().addAction(action)/*.setBackground()*/)
+                                .extend(new WearableExtender()
+                                        .addAction(action)
+                                        .setBackground(background))
                                 .build();
-
-                /*
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                        //.setSmallIcon(R.drawable.ic_stat_ic_notification)
-                        .setContentTitle("Bus Tracker")
-                        .setContentText("Bus Coming")
-                        //.setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);*/
 
                 NotificationManagerCompat notificationManager =
                         NotificationManagerCompat.from(this);
-
-                /* NotificationManager notificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);*/
 
                 notificationManager.notify(notificationId, notification);
             } else if (UNABLE.equals(strs[COMMANDINDEX])) {
@@ -125,11 +115,13 @@ public class WearCommunicationService extends WearableListenerService {
 
                 int notificationId = 002;
                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Bitmap background = BitmapFactory.decodeResource(getResources(),
+                        R.drawable.ic_background);
+
                 NotificationCompat.Action action =
                         new NotificationCompat.Action.Builder(R.drawable.ic_stat_ic_notification,
                                 getString(R.string.bus_unable), pendingIntent)
                                 .build();
-
                 Notification notification =
                         new NotificationCompat.Builder(this)
                                 .setSmallIcon(R.drawable.ic_stat_ic_notification)
@@ -139,23 +131,13 @@ public class WearCommunicationService extends WearableListenerService {
                                 .setVibrate(new long[]{0, 500, 50, 300})
                                 .setDefaults(Notification.DEFAULT_ALL)
                                 .setContentIntent(pendingIntent)
-                                .extend(new WearableExtender().addAction(action)/*.setBackground()*/)
+                                .extend(new WearableExtender()
+                                        .addAction(action)
+                                        .setBackground(background))
                                 .build();
-
-                /*
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                        //.setSmallIcon(R.drawable.ic_stat_ic_notification)
-                        .setContentTitle("Bus Tracker")
-                        .setContentText("Bus Coming")
-                        //.setAutoCancel(true)
-                        .setSound(defaultSoundUri)
-                        .setContentIntent(pendingIntent);*/
 
                 NotificationManagerCompat notificationManager =
                         NotificationManagerCompat.from(this);
-
-                /* NotificationManager notificationManager =
-                        (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);*/
 
                 notificationManager.notify(notificationId, notification);
             }
