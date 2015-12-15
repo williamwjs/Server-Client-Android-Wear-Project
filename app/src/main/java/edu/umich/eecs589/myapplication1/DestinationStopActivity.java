@@ -30,8 +30,8 @@ public class DestinationStopActivity extends WearableActivity implements
 
     private TextView mTextView;
     private String destinationStop;
-    private static double latitude;
-    private static double longitude;
+    public static double latitude = 42.2911413;
+    public static double longitude = -83.716136;
 
     private static int i = 0;
     private final static int SPEECH_REQUEST_CODE = 0;

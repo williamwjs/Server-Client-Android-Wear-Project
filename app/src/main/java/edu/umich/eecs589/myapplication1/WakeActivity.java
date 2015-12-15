@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class WakeActivity extends WearableActivity {
@@ -38,5 +39,13 @@ public class WakeActivity extends WearableActivity {
                 mTextView2.setText(busTime);
             }
         });
+    }
+
+    public void openMap(View view) {
+        Log.d(TAG, "Opening Map...");
+
+        Intent intent = new Intent(WakeActivity.this, MapsActivity.class);
+        intent.putExtra("GPS", gps);
+        startActivity(intent);
     }
 }

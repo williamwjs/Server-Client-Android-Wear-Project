@@ -23,4 +23,15 @@
         android:layout_alignStart="@+id/text_time"
         android:layout_marginTop="18dp" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/open_map"
+        android:id="@+id/button"
+        android:onClick="openMap"
+        android:layout_below="@+id/text_time"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp" />
+
 </RelativeLayout>
