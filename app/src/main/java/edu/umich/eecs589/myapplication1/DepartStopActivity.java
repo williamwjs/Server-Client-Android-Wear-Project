@@ -16,6 +16,7 @@ public class DepartStopActivity extends Activity {
     private TextView mTextView;
     private String departStop;
 
+    private static int i = 30000;
     private final static int SPEECH_REQUEST_CODE = 0;
     private final static String TAG = "CURRENT";
 
@@ -39,7 +40,10 @@ public class DepartStopActivity extends Activity {
         int minute = lastIntent.getIntExtra("ArrivalMinute", 0);
         String destinationStop = lastIntent.getStringExtra("DestinationStop");
 
-        Log.i(TAG, departStop + ", " + destinationStop + ", " + hour + ":" + minute);
+        String msg = ++i + "|GPS|" + departStop + "|" + destinationStop
+                + "|" + hour + "|" + minute + "|";
+        Log.i(TAG, msg);
+        WearCommunicationService.sendMsg(DestinationStopActivity.mGoogleApiClient, msg);
     }
 
     public void getVoiceInput(View view) {

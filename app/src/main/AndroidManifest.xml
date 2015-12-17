@@ -24,14 +24,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".BusActivity"
             android:label="@string/title_activity_bus" />
-        <!--
-            <activity
+
+        <activity
             android:name=".DepartStopActivity"
             android:label="@string/title_activity_depart_stop" />
-        -->
+
         <activity
             android:name=".DestinationStopActivity"
             android:label="@string/title_activity_destination_stop" />
@@ -53,6 +54,7 @@
         <activity
             android:name=".WakeActivity"
             android:label="@string/title_activity_wake" />
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

@@ -69,20 +69,21 @@ public class DestinationStopActivity extends WearableActivity implements
         int hour = lastIntent.getIntExtra("ArrivalHour", 0);
         int minute = lastIntent.getIntExtra("ArrivalMinute", 0);
 
-        /*if (latitude == 0 || longitude == 0) {
+        if (latitude == 0 || longitude == 0) {
             // Can't get the current gps location. Let user voice input
+            Log.d(TAG, "Can't get current gps location");
             Intent intent = new Intent(DestinationStopActivity.this, DepartStopActivity.class);
             intent.putExtra("ArrivalHour", hour);
             intent.putExtra("ArrivalMinute", minute);
             intent.putExtra("DestinationStop", destinationStop);
             startActivity(intent);
-        } else {*/
+        } else {
             String msg = ++i + "|GPS|" + latitude + "," + longitude + "|"
                     + "Central Campus Transit Center" + "|" + hour + "|" + minute + "|";
                     //+ destinationStop + "|" + hour + "|" + minute + "|";
             Log.i(TAG, msg);
             WearCommunicationService.sendMsg(mGoogleApiClient, msg);
-        //}
+        }
     }
 
     public void getVoiceInput(View view) {
