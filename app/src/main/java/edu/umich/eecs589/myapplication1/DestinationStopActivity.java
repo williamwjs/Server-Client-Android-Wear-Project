@@ -79,8 +79,7 @@ public class DestinationStopActivity extends WearableActivity implements
             startActivity(intent);
         } else {
             String msg = ++i + "|GPS|" + latitude + "," + longitude + "|"
-                    + "Central Campus Transit Center" + "|" + hour + "|" + minute + "|";
-                    //+ destinationStop + "|" + hour + "|" + minute + "|";
+                    + destinationStop + "|" + hour + "|" + minute + "|";
             Log.i(TAG, msg);
             WearCommunicationService.sendMsg(mGoogleApiClient, msg);
         }
