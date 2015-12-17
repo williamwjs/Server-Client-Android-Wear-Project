@@ -65,8 +65,7 @@ public class WearCommunicationService extends WearableListenerService {
             if (BUSOPT.equals(strs[COMMANDINDEX])) {
                 Log.d(TAG, "Go to BusActivity");
                 Intent intent = new Intent(this, BusActivity.class);
-                intent.putExtra("BusInfo1", strs[COMMANDINDEX + 1]);
-                intent.putExtra("BusInfo2", strs[COMMANDINDEX + 2]);
+                intent.putExtra("BusInfo", message);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             } else if (WAKE.equals(strs[COMMANDINDEX])) {

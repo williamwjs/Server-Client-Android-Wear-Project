@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+
 public class BusActivity extends Activity {
 
     private TextView mTextView;
@@ -27,14 +29,10 @@ public class BusActivity extends Activity {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
                 Intent lastIntent = getIntent();
-                String[] BUS_NAME = null;
-                String busInfo1 = lastIntent.getStringExtra("BusInfo1");
-                String busInfo2 = lastIntent.getStringExtra("BusInfo2");
-                if ("none".equals(busInfo2)) {
-                    BUS_NAME = new String[] {busInfo1};
-                } else {
-                    BUS_NAME = new String[] {busInfo1, busInfo2};
-                }
+                String busInfo = lastIntent.getStringExtra("BusInfo");
+                String[] buses = busInfo.split("\\|");
+                String[] BUS_NAME = new String[buses.length - 2];
+                System.arraycopy(buses, 2, BUS_NAME, 0, BUS_NAME.length);
 
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
